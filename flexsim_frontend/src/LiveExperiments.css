@@ -1,0 +1,103 @@
+.live-exp-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f4f8fc 0%, #eaf2fa 100%);
+}
+
+.live-exp-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.live-exp-title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.live-exp-subtitle {
+  margin: 8px 0 20px;
+  color: #334155;
+}
+
+.live-exp-card {
+  background: #ffffff;
+  border: 1px solid #dbe7f3;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  padding: 24px;
+}
+
+.live-exp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.live-exp-label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.live-exp-value {
+  margin-top: 4px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.live-exp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.live-exp-status {
+  padding: 7px 12px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.live-exp-status.active {
+  color: #0b7a4f;
+  background: #ddf8ea;
+}
+
+.live-exp-status.idle {
+  color: #6b7280;
+  background: #eceff3;
+}
+
+.live-exp-primary-btn,
+.live-exp-secondary-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.live-exp-primary-btn {
+  background: #0f74c8;
+  color: #ffffff;
+}
+
+.live-exp-secondary-btn {
+  background: #ffffff;
+  border: 1px solid #c8d8ea;
+  color: #1d4c74;
+}
+
+.live-exp-empty-text {
+  margin: 0 0 16px;
+  color: #475569;
+}
+
+@media (max-width: 900px) {
+  .live-exp-grid {
+    grid-template-columns: 1fr;
+  }
+}

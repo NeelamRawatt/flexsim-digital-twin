@@ -1,0 +1,12 @@
+package com.example.flexsim_simulation_service.enums;
+
+
+public enum ExperimentRunStage {
+    OPENING_FLEXSIM,
+    IMPORTING_PARCEL_DATA,
+    GETTING_INFEED_RESOURCE_DETAILS,
+    GETTING_ZONE_RESOURCE_DETAILS,
+    STARTING_SIMULATION,
+    SIMULATION_STARTED,
+    FINISHED
+}

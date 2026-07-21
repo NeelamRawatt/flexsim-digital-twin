@@ -1,0 +1,36 @@
+@Configuration : This class contains configuration/settings.
+SecurityConfig class :Which APIs are open?
+						Which APIs need login?
+						Should we use session or JWT?
+						How should passwords be encoded?
+PasswordEncoder : is an interface used to protect user passwords
+		We should not store raw password directly in DB.
+BCryptPasswordEncoder : is an class strong password hashing algorithm .
+	eg - > Raw password : test123
+			Db password : "$2a$10$....."
+	It is one way . 
+	You can convert test123 to hash.
+	But you cannot convert hash back to test123.
+SecurityFilterChain : is an interface used for defining security rules for your APIs
+		
+ENVIRONAMENT VARIABLE 
+JWT SECREAT USI SERVICE ME USE KRO JAHA AUTHENTICATION HORA HO 
+@Enumerated(EnumType.STRING) : Store enum value as text/string in database.
+EnumType.STRING, database may store numbers like: 0 1 2 3 
+private ExperimentStatus status;
+validation hme dto class pe use kro entity pe nhi
+@PrePersist : Run this method automatically before saving a new row in database.
+			You do not call this method manually.
+			
+Better future flow:
+
+Frontend sends JWT token
+Backend extracts username from token
+Backend sets username automatically
+
+That will be more secure.
+
+
+Mapper : converts one object type into NOTHER 
+		eNTITY -> dto
+		needed because controller uses DTO and database ueses entity

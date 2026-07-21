@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flexsim-ingress
+  namespace: flexsim
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /api/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 8081
+          - path: /api/experiments
+            pathType: Prefix
+            backend:
+              service:
+                name: experiment-service
+                port:
+                  number: 8082
+          - path: /api/files
+            pathType: Prefix
+            backend:
+              service:
+                name: file-service
+                port:
+                  number: 8083

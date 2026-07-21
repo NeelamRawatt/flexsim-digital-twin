@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: experiment-service
+  namespace: flexsim
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: experiment-service
+  template:
+    metadata:
+      labels:
+        app: experiment-service
+    spec:
+      containers:
+        - name: experiment-service
+          image: project_for_interview-experiment-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8082
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/flexsim_database
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: kafka:9092
+            - name: SERVICES_AUTH_BASE_URL
+              value: http://auth-service:8081
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: POSTGRES_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_SECRET
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: experiment-service
+  namespace: flexsim
+spec:
+  selector:
+    app: experiment-service
+  ports:
+    - port: 8082
+      targetPort: 8082

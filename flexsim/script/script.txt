@@ -1,0 +1,16 @@
+getDataForExperiment(1021, "127.0.0.1", 8080, "/api/parcels/getParcels/1021", "Parcel_Data");
+getDataForExperiment(1021, "127.0.0.1", 8080, "/api/resourceDetails/getInfeedDetails/1021", "Infeed_Resource_Details");
+getDataForExperiment(1021, "127.0.0.1", 8080, "/api/resourceDetails/getZoneDetails/1021", "Zone_Resource_Details");
+DateTime startTime = DateTime("11/28/2024 23:00:00","%m/%d/%Y %H:%M:%S");
+function_s(getmodelunit(START_TIME_NODE), "setDateTime", startTime);
+
+DateTime stopTime = DateTime("11/29/2024 07:15:00","%m/%d/%Y %H:%M:%S");
+int s = stopTime.totalSeconds - startTime.totalSeconds;
+stoptime(s);
+
+updateSimulationStatus(1021, "127.0.0.1", 8080, "/api/flexsim/updateSimulationStage", "STARTING_SIMULATION", "Starting Simulation");
+MAXRECIRCULATION = 3;
+resetmodel();
+runspeed(4);
+go();
+updateSimulationStatus(1021, "127.0.0.1", 8080, "/api/flexsim/updateSimulationStage", "SIMULATION_STARTED", "Simulation Started");

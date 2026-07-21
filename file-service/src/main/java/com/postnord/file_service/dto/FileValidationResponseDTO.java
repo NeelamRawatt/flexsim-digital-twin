@@ -1,0 +1,19 @@
+package com.postnord.file_service.dto;
+
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter@Setter@Builder
+@AllArgsConstructor@NoArgsConstructor
+public class FileValidationResponseDTO {
+
+    private boolean valid;
+    private String message;
+    private List<String> errors;
+    
+}

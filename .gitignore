@@ -1,0 +1,87 @@
+############################
+
+# 🔹 GENERAL
+
+############################
+
+*.log
+
+*.tmp
+
+.DS_Store
+
+.env
+
+############################
+
+# 🔹 REACT (flexsim_frontend)
+
+############################
+
+flexsim_frontend/node_modules/
+
+flexsim_frontend/build/
+
+flexsim_frontend/dist/
+
+flexsim_frontend/.env*
+
+flexsim_frontend/npm-debug.log*
+
+############################
+
+# 🔹 SPRING BOOT (MAVEN)
+
+############################
+
+flexsim-simulation-service/target/
+*.class
+
+flexsim-simulation-service/*.class
+
+flexsim-simulation-service/simulation-service/**/*.class
+
+# Logs
+flexsim-simulation-service/*.log
+
+
+
+############################
+
+# 🔹 SPRING BOOT (GRADLE)
+
+############################
+
+flexsim-simulation-service/.gradle/
+
+flexsim-simulation-service/build/
+
+flexsim-simulation-service/out/
+
+############################
+
+# 🔹 GRADLE FILES (GLOBAL)
+
+############################
+
+.gradle/
+
+build/
+
+out/
+
+############################
+
+# 🔹 IDE FILES
+
+############################
+
+.idea/
+
+*.iml
+
+.vscode/
+
+# Secrets - NEVER commit these
+.env
+*.env

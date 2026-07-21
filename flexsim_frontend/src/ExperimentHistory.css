@@ -1,0 +1,144 @@
+.history-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f7fafc 0%, #edf3fa 100%);
+}
+
+.history-shell {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.history-title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.history-subtitle {
+  margin: 8px 0 20px;
+  color: #475569;
+}
+
+.history-meta {
+  margin: -6px 0 8px;
+  font-size: 13px;
+  color: #55708c;
+}
+
+.history-meta.warning {
+  color: #9a5b13;
+}
+
+.history-error {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #b42318;
+}
+
+.history-table-card {
+  background: #ffffff;
+  border: 1px solid #dbe7f3;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  padding: 16px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.history-table th,
+.history-table td {
+  padding: 11px 10px;
+  border-bottom: 1px solid #e9eef5;
+  text-align: left;
+}
+
+.history-table th {
+  font-size: 12px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.history-status {
+  display: inline-block;
+  border-radius: 14px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.history-status.completed {
+  background: #def7e9;
+  color: #0f7a4d;
+}
+
+.history-status.running {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.history-status.failed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.history-result-btn {
+  border: 1px solid #0f74c8;
+  background: #ffffff;
+  color: #0f74c8;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.history-result-btn:disabled {
+  border-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.history-result-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.history-state-cell {
+  text-align: center !important;
+  padding: 28px 12px !important;
+  color: #61758a;
+  font-weight: 600;
+}
+
+.history-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 2px 4px;
+}
+
+.history-pagination button {
+  border: 1px solid #c9d9ea;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.history-pagination button:disabled {
+  color: #9aa7b8;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1080px) {
+  .history-table-card {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,57 @@
+.live-metrics-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f5f8fc 0%, #edf3f8 100%);
+}
+
+.live-metrics-shell {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.live-metrics-title {
+  margin: 0 0 10px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.live-metrics-subtitle {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: #334155;
+}
+
+.live-metrics-placeholder {
+  margin-top: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #dbe5f0;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+  padding: 24px;
+  font-size: 15px;
+  color: #334155;
+}
+
+.live-metrics-tabs {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.live-metrics-tab {
+  border: 1px solid #ccdae9;
+  background: #ffffff;
+  color: #1f3d5a;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.live-metrics-tab.active {
+  background: #0f74c8;
+  border-color: #0f74c8;
+  color: #ffffff;
+}

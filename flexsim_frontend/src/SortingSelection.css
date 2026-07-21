@@ -1,0 +1,105 @@
+body {
+
+    margin: 0;
+
+    font-family: "Segoe UI", sans-serif;
+
+    background: #eef2f7;
+
+}
+
+.sorting-container {
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+      text-align: center;
+
+  
+
+    
+
+}
+
+.title {
+
+    font-size: 36px;
+
+    color: #2c3e50;
+
+    margin-bottom: 10px;
+
+}
+
+.subtitle {
+
+    color: #7f8c8d;
+
+    margin-bottom: 40px;
+    font-size: 18px;
+
+}
+
+.card-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+    flex-wrap: wrap;
+
+}
+
+/* CARD */
+
+.sorting-card {
+
+    width: 340px;
+
+    padding: 40px 30px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(135deg, #3c8dbc, #5dade2);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+
+}
+
+.sorting-card:hover {
+
+    transform: translateY(-10px) scale(1.03);
+
+}
+
+.sorting-card .icon {
+
+    font-size: 50px;
+
+    margin-bottom: 20px;
+
+}
+
+.sorting-card h2 {
+
+    margin-bottom: 10px;
+    font-size: 22px;
+
+}
+
+.sorting-card p {
+
+    font-size: 15px;
+
+    opacity: 0.9;
+
+}
