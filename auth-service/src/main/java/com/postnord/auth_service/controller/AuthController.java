@@ -19,7 +19,10 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+
 public class AuthController {
+
+    // testing CI/CD pipeline trigger
     
     private final AuthService authService;
 
