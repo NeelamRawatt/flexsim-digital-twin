@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 public class AuthController {
 
-    // testing CI/CD pipeline trigger
+    // testing CI/CD pipeline trigger - attempt 2
     
     private final AuthService authService;
 
