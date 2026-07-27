@@ -4,14 +4,50 @@ on:
   push:
     branches: [main]
     paths:
-      - 'simulation-service/**'
+      - "simulation-service/**"
+      - ".github/workflows/simulation-service.yml"
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: flexsim_database
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: testpassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d flexsim_database"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      kafka:
+        image: apache/kafka:3.9.0
+        ports:
+          - 9092:9092
+        env:
+          KAFKA_NODE_ID: 1
+          KAFKA_PROCESS_ROLES: broker,controller
+          KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+          KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+          KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
     defaults:
       run:
         working-directory: simulation-service
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,13 +58,36 @@ jobs:
       - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: "21"
+          distribution: temurin
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Create test schema
+        run: |
+          PGPASSWORD=testpassword psql \
+            -h localhost \
+            -U postgres \
+            -d flexsim_database \
+            -c "CREATE SCHEMA IF NOT EXISTS simulation;"
 
       - name: Build and run tests
         env:
           POSTGRES_PASSWORD: testpassword
+          JWT_SECRET: test-secret-key-for-ci-minimum-32-characters
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/flexsim_database
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:9092
+          SERVICES_FILE_BASE_URL: http://localhost:8083
+          FLEXSIM_MODE: dummy
         run: ./mvnw clean verify
+
+      - name: Set lowercase image name
+        run: |
+          echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/simulation-service" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -41,5 +100,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./simulation-service
+          file: ./simulation-service/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/simulation-service:latest
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
