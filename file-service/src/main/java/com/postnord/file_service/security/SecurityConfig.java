@@ -21,6 +21,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+    .requestMatchers("/actuator/**").permitAll()
     .requestMatchers("/api/files/exists/**").permitAll() // service-to-service check, not user-facing
     .anyRequest().authenticated())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
