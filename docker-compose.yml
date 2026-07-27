@@ -10,6 +10,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d flexsim_database"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   kafka:
     image: apache/kafka:3.9.0
     container_name: kafka
@@ -35,7 +40,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/flexsim_database
     depends_on:
-      - postgres
+      - postgres:
+          condition: service_healthy
 
   experiment-service:
     build: ./experiment-service
@@ -49,9 +55,12 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SERVICES_AUTH_BASE_URL: http://auth-service:8081
     depends_on:
-      - postgres
-      - kafka
-      - auth-service
+      - postgres:
+          condition: service_healthy
+      - kafka:
+          condition: service_healthy
+      - auth-service:
+          condition: service_healthy
 
   file-service:
     build: ./file-service
@@ -63,7 +72,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/flexsim_database
     depends_on:
-      - postgres
+      - postgres:
+          condition: service_healthy
 
   simulation-service:
     build: ./simulation-service
@@ -75,8 +85,13 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/flexsim_database
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SERVICES_FILE_BASE_URL: http://file-service:8083
     depends_on:
-      - postgres
-      - kafka
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+      file-service:
+        condition: service_started
 volumes:
   postgres_data:

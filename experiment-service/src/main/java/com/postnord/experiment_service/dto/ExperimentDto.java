@@ -35,7 +35,7 @@ public class ExperimentDto {
     private String parcelChangeMode;
     private Integer maxRecirculationCount;
 
-    @NotBlank(message = "Username is required")
+    // @NotBlank(message = "Username is required")
     private String username;
 
     private String status;

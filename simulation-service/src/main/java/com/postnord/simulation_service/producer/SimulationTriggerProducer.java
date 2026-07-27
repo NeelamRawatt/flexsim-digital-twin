@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.postnord.simulation_service.dto.ExperimentDto;
 import com.postnord.simulation_service.event.SimulationTriggerEvent;
-
+//This producer sends simulation job to Kafka.
 @Component
 public class SimulationTriggerProducer {
 

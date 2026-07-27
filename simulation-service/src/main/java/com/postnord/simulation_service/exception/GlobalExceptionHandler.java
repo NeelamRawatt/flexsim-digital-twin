@@ -30,6 +30,17 @@ public ResponseEntity<Map<String, String>> handleAcceptableParcelUnitNotFound(In
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
 }
 
+@ExceptionHandler(FilesNotReadyException.class)
+public ResponseEntity<Map<String, String>> handleFilesNotReady(FilesNotReadyException ex) {
+    return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
+}
+
+@ExceptionHandler(FileServiceUnavailableException.class)
+public ResponseEntity<Map<String, String>> handleFileServiceUnavailable(FileServiceUnavailableException ex) {
+    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(Map.of("error", "Could not verify uploaded files right now. Please try again shortly."));
+}
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleUnexpected(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

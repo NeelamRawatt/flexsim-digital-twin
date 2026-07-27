@@ -61,4 +61,10 @@ public class FileController {
     }
 
 
+    @GetMapping("/exists/{simExpId}")
+public ResponseEntity<Boolean> filesReady(@PathVariable Integer simExpId) {
+    return ResponseEntity.ok(fileStorageService.areRequiredFilesReady(simExpId));
+}
+
+
 }

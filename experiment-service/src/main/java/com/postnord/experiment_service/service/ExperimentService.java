@@ -72,6 +72,7 @@ public class ExperimentService {
         {
             throw new ExperimentNotFoundException(id);
         }
+        experimentRepository.deleteById(id);
     }
 
     public Page<ExperimentDto> getHistory(String username,Pageable pageable)

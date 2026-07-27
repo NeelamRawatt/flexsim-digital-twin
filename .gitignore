@@ -85,3 +85,4 @@ out/
 # Secrets - NEVER commit these
 .env
 *.env
+k8s/secrets.yaml

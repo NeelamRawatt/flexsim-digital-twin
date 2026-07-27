@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+// This is the base URL for this controller.
 @RequestMapping("/api/experiments")
 @RequiredArgsConstructor
 public class ExperimentController {

@@ -9,6 +9,20 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: flexsim_database
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: testpassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     defaults:
       run:
         working-directory: auth-service
@@ -24,8 +38,13 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          
+      - name: Create test schema
+        run: PGPASSWORD=testpassword psql -h localhost -U postgres -d flexsim_database -c "CREATE SCHEMA IF NOT EXISTS auth;"
 
       - name: Build and run tests
+        env:
+          POSTGRES_PASSWORD: testpassword
         run: ./mvnw clean verify
 
       - name: Log in to GitHub Container Registry

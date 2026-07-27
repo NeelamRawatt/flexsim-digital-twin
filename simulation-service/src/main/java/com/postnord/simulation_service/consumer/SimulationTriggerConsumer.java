@@ -24,10 +24,15 @@ import com.postnord.simulation_service.util.FlexsimPathUtil;
 @RequiredArgsConstructor
 public class SimulationTriggerConsumer {
 
+    // This reads FlexSim-related configuration from application.properties.
     private final FlexsimProperties flexsimProperties;
+    // It creates FlexSim script file.
     private final FlexsimScriptService flexsimScriptService;
+    // This saves progress in DB.
     private final ExperimentRunProgressService experimentRunProgressService;
+    // This sends live progress to frontend.
     private final ExperimentProgressSseService experimentProgressSseService;
+    // This publishes status to Kafka topic:
     private final SimulationStatusProducer simulationStatusProducer;
     private final DummyFlexsimRunner dummyFlexsimRunner;
 
@@ -85,5 +90,10 @@ public class SimulationTriggerConsumer {
         );
         Process process = processBuilder.start();
         process.waitFor(); // blocks only THIS one thread -- the other 3 partitions keep working independently
+    
+    
+    
+    
+    
     }
 }

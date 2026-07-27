@@ -11,6 +11,7 @@ import com.postnord.simulation_service.repository.SimulationContextRepository;
 
 @Service
 @RequiredArgsConstructor
+// It saves important experiment details needed later during simulation.
 public class SimulationContextService {
 
     private final SimulationContextRepository simulationContextRepository;

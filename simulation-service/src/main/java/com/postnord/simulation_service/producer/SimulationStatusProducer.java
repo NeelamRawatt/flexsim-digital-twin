@@ -11,6 +11,7 @@ import com.postnord.simulation_service.event.SimulationStatusEvent;
 
 @Slf4j
 @Component
+// This producer sends status updates to Kafka.
 public class SimulationStatusProducer {
 
     private final KafkaTemplate<String, SimulationStatusEvent> kafkaTemplate;

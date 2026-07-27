@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.postnord.simulation_service.client.FileServiceClient;
 import com.postnord.simulation_service.dto.ExperimentDto;
+import com.postnord.simulation_service.exception.FilesNotReadyException;
 import com.postnord.simulation_service.producer.SimulationStatusProducer;
 import com.postnord.simulation_service.producer.SimulationTriggerProducer;
 
@@ -14,11 +16,18 @@ import com.postnord.simulation_service.producer.SimulationTriggerProducer;
 @RequiredArgsConstructor
 public class SimulationRunService {
 
+    // This saves the simulation context into DB.
     private final SimulationContextService simulationContextService;
     private final SimulationStatusProducer simulationStatusProducer;
     private final SimulationTriggerProducer simulationTriggerProducer;
-
+    private final FileServiceClient fileServiceClient; //
+    
+    // This method is called when frontend clicks Run Simulation.
     public ResponseEntity<String> submitSimulation(ExperimentDto experimentDto) {
+         if (!fileServiceClient.filesReady(experimentDto.getExperimentId())) {
+            throw new FilesNotReadyException(experimentDto.getExperimentId());
+        }
+        
         simulationContextService.saveContext(experimentDto); // still needed immediately, for whenever this one's turn comes
         simulationStatusProducer.publish(experimentDto.getExperimentId(), "QUEUED");
         simulationTriggerProducer.publish(experimentDto);

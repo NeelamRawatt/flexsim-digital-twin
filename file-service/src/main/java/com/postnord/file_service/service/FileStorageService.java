@@ -76,6 +76,11 @@ public class FileStorageService {
         fileUploadedRepository.save(entity);
     }
 
+    public boolean areRequiredFilesReady(Integer simExpId) {
+    boolean hasInfeed = fileUploadedRepository.existsBySimExpIdAndFileCategory(simExpId, FileCategory.INFEED);
+    boolean hasZoneResource = fileUploadedRepository.existsBySimExpIdAndFileCategory(simExpId, FileCategory.ZONE_RESOURCE);
+    return hasInfeed && hasZoneResource;
+}
     private String getFileExtension(String fileName) {
         if (fileName == null || !fileName.contains(".")) return "";
         return fileName.substring(fileName.lastIndexOf('.') + 1);

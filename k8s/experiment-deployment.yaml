@@ -13,10 +13,12 @@ spec:
       labels:
         app: experiment-service
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: experiment-service
-          image: project_for_interview-experiment-service
-          imagePullPolicy: Never
+          image: ghcr.io/neelam30rawat/experiment-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8082
           env:
@@ -36,6 +38,25 @@ spec:
                 secretKeyRef:
                   name: app-secrets
                   key: JWT_SECRET
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "384Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8081
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 15
 ---
 apiVersion: v1
 kind: Service

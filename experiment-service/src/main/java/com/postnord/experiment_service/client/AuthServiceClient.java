@@ -7,7 +7,7 @@ import org.springframework.web.client.RestClient;
 
 import com.postnord.experiment_service.exception.AuthServiceUnavailableException;
 
-
+                                                                                                                                               
 
 @Component
 public class AuthServiceClient {
