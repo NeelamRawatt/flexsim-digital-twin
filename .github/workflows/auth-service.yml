@@ -28,7 +28,7 @@ jobs:
           --health-cmd="pg_isready -U postgres -d flexsim_database"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     defaults:
       run:
@@ -52,6 +52,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y postgresql-client
 
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5432 -U postgres -d flexsim_database && exit 0
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+          echo "PostgreSQL did not become ready"
+          exit 1
+
       - name: Create test schema
         run: |
           PGPASSWORD=testpassword psql \
@@ -66,6 +76,7 @@ jobs:
           JWT_SECRET: test-secret-key-for-ci-minimum-32-characters
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/flexsim_database
           SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: testpassword
         run: ./mvnw clean verify
 
       - name: Set lowercase image name
